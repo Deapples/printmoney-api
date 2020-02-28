@@ -11,9 +11,9 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/', function () {
+    return response(['message'=> 'connected to server successfully'], 200);
+});
 
 //make payment route 
 Route::match(['get', 'put'], '/paymoney', 'PayFundsController@makePayment');
