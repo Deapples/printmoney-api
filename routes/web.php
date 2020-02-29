@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 //test connection route
 Route::get('/test', function(){
-    return response(['message'=> 'Connected to server Successfully'], 200);
+    return response(['message'=> 'Connected to server Successfully',
+'status' => 'ok'], 200);
 });
 //make payment route 
 Route::match(['get', 'put'], '/paymoney', 'PayFundsController@makePayment');
