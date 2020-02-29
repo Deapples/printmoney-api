@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return response(['message'=> 'connected to server successfully'], 200);
+    return view('welcome');
 });
-
+//test connection route
+Route::get('/test', function(){
+    return response(['message'=> 'Connected to server Successfully'], 200);
+});
 //make payment route 
 Route::match(['get', 'put'], '/paymoney', 'PayFundsController@makePayment');
 
