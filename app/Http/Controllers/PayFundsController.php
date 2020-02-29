@@ -56,7 +56,7 @@ class PayFundsController extends Controller
                 $receiver->user_id = $getter[0]->id;
                 $save = $receiver -> save();
                 if($save){
-                    return response(['message'=> 'Payment made Successfully'], 200);
+                    return response(['message'=> 'Payment made Successfully', 'status'=> 'ok'], 200);
                 }else{
                     return response(['message' => 'An error occur'], 417);
                 }
