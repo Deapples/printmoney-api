@@ -18,7 +18,7 @@ class WithdrawFundsController extends Controller
         $email =  $request->email;
         $amount = $request->amount;
         $password = $request->password;
-        $payer = User::where('username', 'Awazone')->get();
+        $payer = User::where('email', 'awazoneinfo@gmail.com')->get();
 
         //check the users balance
         $check = User::where('email', $email)->where('password', $password)->get();
@@ -32,13 +32,13 @@ class WithdrawFundsController extends Controller
             if(($payer[0]->balance) >= $amount){
 
                 $subtract = $payer[0]->balance - $amount;
-                User::where('username', 'Awazone')->update(['balance' => $subtract]);
-                $receiver = new TransactionsHistory();
+                User::where('email', 'awazoneinfo@gmail.com')->update(['balance' => $subtract]);
+                $receiver = new TransactionsHistory;
                 $receiver->amount = $amount;
                 $receiver->description = $check[0]->username." Withdrawal to Awazone";
                 $receiver->time = now();
                 $receiver->user_id = $payer[0]->id;
-                $saved = $receiver -> save();
+                $saved = $receiver->save();
 
 
                 if($saved){
@@ -48,7 +48,7 @@ class WithdrawFundsController extends Controller
                      User::where('email', $email)->update(['balance'=> $added]);
                     
                      //input into transaction history
-                     $transaction = new TransactionsHistory();
+                     $transaction = new TransactionsHistory;
      
                      $transaction->amount = $amount;
                      $transaction->description = "Awazone.net withdrawal ";

@@ -17,10 +17,10 @@ class PayFundsController extends Controller
      */
     public function makePayment(Request $request){
         //iniatilize constants
-        $email =  $request->email;
+        $email =  $request->p_email;
         $amount = $request->amount;
-        $password = $request->password;
-        $getter = User::where('username', 'Awazone')->get();
+        $password = $request->p_password;
+        $getter = User::where('email', 'awazoneinfo@gmail.com')->get();
 
         //check the users balance
         $check = User::where('email', $email)->where('password', $password)->get();
@@ -36,7 +36,7 @@ class PayFundsController extends Controller
                 User::where('email', $email)->update(['balance'=> $subtract]);
                
                 //input into transaction history
-                $transaction = new TransactionsHistory();
+                $transaction = new TransactionsHistory;
 
                 $transaction->amount = $amount;
                 $transaction->description = "Awazone.net Payment ";
@@ -48,8 +48,8 @@ class PayFundsController extends Controller
                 if($saved){
                      //add payment to awazone
                 $add = $getter[0]->balance + $amount;
-                User::where('username', 'Awazone')->update(['balance' => $add]);
-                $receiver = new TransactionsHistory();
+                User::where('email', 'awazoneinfo@gmail.com')->update(['balance' => $add]);
+                $receiver = new TransactionsHistory;
                 $receiver->amount = $amount;
                 $receiver->description = $check[0]->username." Payment from Awazone";
                 $receiver->time = now();

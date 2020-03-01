@@ -24,4 +24,4 @@ Route::match(['get', 'put'], '/paymoney', 'PayFundsController@makePayment');
 
 //withdraw money route
 
-Route::match(['get', 'put'], '/withdraw', 'WithdrawFundsController@withdrawPayment');
+Route::post('/withdraw', 'WithdrawFundsController@withdrawPayment');
